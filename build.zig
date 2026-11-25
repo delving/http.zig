@@ -52,7 +52,7 @@ pub fn build(b: *std.Build) !void {
         const run_test = b.addRunArtifact(tests);
         run_test.has_side_effects = true;
         if (enable_tsan == true) {
-            run_test.setEnvironmentVariable("TSAN_OPTIONS", b.fmt("suppressions={s}", .{try b.root.joinString(b.allocator, "tsan.supp")}));
+            run_test.setEnvironmentVariable("TSAN_OPTIONS", b.fmt("suppressions={s}", .{b.pathFromRoot("tsan.supp")}));
         }
 
         const test_step = b.step("test", "Run tests");
